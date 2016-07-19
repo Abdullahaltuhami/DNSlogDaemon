@@ -9,13 +9,13 @@ The database can be anyy SQL-based database of your choice, We are picking postg
 * postgressDB
 
 ### How to run/stop/restat the daemon
-##### Starting Daemon
 > python main.py start
-##### Stoping Daemon
+---
 > python main.py stop
-##### Restarting Daemon
+---
 > python main.py restart
+---
+
 
 ### How to view the daemon
-View all by
 >  ps ax
