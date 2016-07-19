@@ -10,10 +10,12 @@ print(s +'\n'+ d)
 class DnslogDaemon(Daemon):
     def run(self):
         with io.FileIO("Daemon-test.txt","w") as file:
-            file.write("Daemon is succuessful ")
+            file.write("Daemon is succuessful")
+        while True:
+            time.sleep(500)
 
 if __name__ == '__main__':
-    daemon = DnslogDaemon('/tmp/dnsDaemon-example.pid')
+    daemon = DnslogDaemon('/tmp/dnsDaemon-OGC.pid')
     if len(sys.argv) == 2:
         if 'start' == sys.argv[1]:
             daemon.start()
@@ -24,7 +26,7 @@ if __name__ == '__main__':
         else:
             print("Unknown command")
             sys.exit(2)
-        sys.ecit(0)
+        sys.exit(0)
     else:
         print("Usage: %s start|stop|restart " % sys.argv[0])
         sys.exit(2)
