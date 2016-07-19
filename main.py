@@ -10,7 +10,7 @@ print(s +'\n'+ d)
 class DnslogDaemon(Daemon):
     def run(self):
         with io.FileIO("Daemon-test.txt","w") as file:
-            file.write("Daemon is succuessfully running")
+            file.write("Daemon is succuessful ")
 
 if __name__ == '__main__':
     daemon = DnslogDaemon('/tmp/dnsDaemon-example.pid')
