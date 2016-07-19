@@ -10,11 +10,11 @@ The database can be anyy SQL-based database of your choice, We are picking postg
 
 ### How to run/stop/restat the daemon
 ##### Starting Daemon
-- python main.py start
+> python main.py start
 ##### Stoping Daemon
-- python main.py stop
+> python main.py stop
 ##### Restarting Daemon
-- python main.py restart
+> python main.py restart
 
 ### How to view the daemon
 View all by
