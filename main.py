@@ -22,7 +22,7 @@ class DnslogDaemon(Daemon):
         # ALL queries will be executed witha cursor - cursor object
         cursor = db.cursor()
         start_time = time.time()
-        with open('DNSdebugLog2Clean','r') as f:
+        with open('../DNSdebugLog2Clean','r') as f:
             try:
                 line = f.readline()
                 while line:
@@ -37,7 +37,7 @@ class DnslogDaemon(Daemon):
                 traceback.print_exc(file=sys.stdout)
             finally:
                 f.close()
-                db.close()                 
+                db.close()
 if __name__ == '__main__':
     daemon = DnslogDaemon('/tmp/dnsDaemon-OGC.pid')
     if len(sys.argv) == 2:
