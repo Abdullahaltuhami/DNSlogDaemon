@@ -1,4 +1,4 @@
-# DNSlogDaemon
+# WindowsServer DNSLog Cleaner
 Daemon scipt that clean windows server DNS log file and insert them into a database for analysis.
 The database can be any SQL-based database of your choice, We are picking MYSQL for the current time.
 
