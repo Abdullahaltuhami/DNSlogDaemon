@@ -15,17 +15,19 @@ The database can be any SQL-based database of your choice, We are picking MYSQL 
 
 
 ### Running script with crontab
-> @reboot * 12 * * * sudo python /home/to/the/script.py &
+> @reboot * 12 * * * sudo python /home/to/the/main.py start &
 
-### view the crontab script 
-> ps aux | grep /home/to/the/script.py
-
-### How to run/stop/restat the daemon
+### How to run/stop/restat without crontab
 > python main.py start
 
 > python main.py stop
 
 > python main.py restart
+
+### view the crontab script 
+> ps aux | grep /home/to/the/script.py
+
+
 
 
 ### How to view the daemon
