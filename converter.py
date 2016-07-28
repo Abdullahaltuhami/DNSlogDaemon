@@ -8,15 +8,14 @@ from daemon import Daemon
 from string import digits
 
 
-class DnslogDaemon(Daemon):
-
-    def run():
+class Converter(object):
+    def run(self):
         # Connection Object
         db = MySQLdb.connect(
             host='localhost',  user='root', passwd='', db='OGC')
         # ALL queries will be executed witha cursor - cursor object
         cursor = db.cursor()
-        with open('test', 'r') as f:
+        with open('../test', 'r') as f:
             try:
                 for line in f.xreadlines():
                     # Clean the lines
@@ -42,7 +41,7 @@ class DnslogDaemon(Daemon):
                         domain = domain.translate(None, digits)
                         # Insert into table
                         cursor.execute('''INSERT INTO dnslog(date,time,time_convention,protocol,snd_rcv,ip,query_response,opcode,domain)VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)''',
-                        (date, time, time_con, UDP_TCP, snd_rcv, IP, opcode, Response_code, domain))
+                                       (date, time, time_con, UDP_TCP, snd_rcv, IP, opcode, Response_code, domain))
                         db.commit()
                     elif len(clean_line) == 18:
                         opcode = clean_line[12]
@@ -54,7 +53,7 @@ class DnslogDaemon(Daemon):
                             '(', '.').replace(')', '').replace('_', '-')
                         domain = domain.translate(None, digits)
                         cursor.execute('''INSERT INTO dnslog(date,time,time_convention,protocol,snd_rcv,ip,query_response,opcode,domain)VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)''',
-                        (date, time, time_con, UDP_TCP, snd_rcv, IP, opcode, Response_code, domain))
+                                       (date, time, time_con, UDP_TCP, snd_rcv, IP, opcode, Response_code, domain))
                         db.commit()
                     elif len(clean_line) == 17:
                         opcode = clean_line[11]
@@ -67,7 +66,7 @@ class DnslogDaemon(Daemon):
                         domain = domain.translate(None, digits)
                         # Insert into table
                         cursor.execute('''INSERT INTO dnslog(date,time,time_convention,protocol,snd_rcv,ip,query_response,opcode,domain)VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)''',
-                        (date, time, time_con, UDP_TCP, snd_rcv, IP, opcode, Response_code, domain))
+                                       (date, time, time_con, UDP_TCP, snd_rcv, IP, opcode, Response_code, domain))
                         db.commit()
                     elif len(clean_line) == 16:
                         opcode = clean_line[11]
@@ -79,7 +78,7 @@ class DnslogDaemon(Daemon):
                         domain = domain.translate(None, digits)
                         # Insert into table
                         cursor.execute('''INSERT INTO dnslog(date,time,time_convention,protocol,snd_rcv,ip,query_response,opcode,domain)VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)''',
-                        (date, time, time_con, UDP_TCP, snd_rcv, IP, opcode, Response_code, domain))
+                                       (date, time, time_con, UDP_TCP, snd_rcv, IP, opcode, Response_code, domain))
                         db.commit()
                     else:
                         print(clean_line)
@@ -91,8 +90,16 @@ class DnslogDaemon(Daemon):
                 f.close()
                 db.close()
 
+
+class MyDaemon(Daemon):
+    def run(self):
+        convert = Converter()
+        convert.run()
+
+
+
 if __name__ == '__main__':
-    daemon=DnslogDaemon('/tmp/dnsDaemon-OGC.pid')
+    daemon = MyDaemon('/tmp/dnsDaemon-OGC.pid')
     if len(sys.argv) == 2:
         if 'start' == sys.argv[1]:
             daemon.start()
