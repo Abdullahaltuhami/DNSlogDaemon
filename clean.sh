@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 #cut the 28 header lines.
 sed '1,29d' DNSdebugLog2 > DNSdebugLogCut
 # Convert log from Windows to Unix format to handle pesky line returns
