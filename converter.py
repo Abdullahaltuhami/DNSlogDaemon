@@ -1,5 +1,4 @@
 #/usr/bin/env python2
-# faisal was here
 import sys
 import time
 import re
@@ -15,7 +14,7 @@ class Converter(object):
             host='localhost',  user='root', passwd='', db='OGC')
         # ALL queries will be executed witha cursor - cursor object
         cursor = db.cursor()
-        with open('../test', 'r') as f:
+        with open('DNSdebugLog2Clean', 'r') as f:
             try:
                 for line in f.xreadlines():
                     # Clean the lines
