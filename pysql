@@ -1,14 +1,12 @@
 CREATE TABLE `dnslog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date` varchar(45) DEFAULT NULL,
-  `time` varchar(45) DEFAULT NULL,
-  `time_convention` varchar(45) DEFAULT NULL,
+  `date_time` varchar(45) DEFAULT NULL,
   `protocol` varchar(45) DEFAULT NULL,
   `snd_rcv` varchar(45) DEFAULT NULL,
   `ip` varchar(45) DEFAULT NULL,
   `query_response` varchar(45) DEFAULT NULL,
   `opcode` varchar(45) DEFAULT NULL,
-  `domain` varchar(100) DEFAULT NULL,
+  `domain` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
