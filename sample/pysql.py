@@ -1,3 +1,13 @@
+
+from daemon import Daemon
+
+host_name = 'localhost'
+user_name ='root'
+passwd = ''
+db = 'OGC'
+
+class Create_Table(object):
+
 CREATE TABLE `dnslog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date_time` varchar(45) DEFAULT NULL,

@@ -4,7 +4,7 @@ The database can be any SQL-based database of your choice, We are picking MYSQL 
 
 
 
-### Useful comands for cronTabs in UNIX systems 
+### Useful comands for cronTabs in UNIX systems
 > crontab -e      
 
 > crontab -l
@@ -24,11 +24,23 @@ The database can be any SQL-based database of your choice, We are picking MYSQL 
 
 > python main.py restart
 
-### view the crontab script 
+### view the crontab script
 > ps aux | grep /home/to/the/script.py
 
+
+### Upgrade setup tools
+> pip install --upgrade setuptools
+
+> easy_install -U setuptools
+
+### Install prerequisties
+> sudo apt-get install python-dev libmysqlclient-dev  # Debian / Ubuntue
+> Sudo yum install python-dev mysql-devel
 
 
 
 ### How to view the daemon
 >  ps ax
+
+### Daemon Used
+> https://github.com/serverdensity/python-daemon

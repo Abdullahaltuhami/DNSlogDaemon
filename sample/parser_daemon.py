@@ -1,5 +1,6 @@
 #/usr/bin/env python2
-import sys, traceback
+import sys
+import traceback
 import time
 import re
 import MySQLdb
@@ -8,6 +9,7 @@ from datetime import datetime
 
 
 class parser_algorithm(object):
+
     def run(self):
         # Connection Object
         db = MySQLdb.connect(
@@ -80,9 +82,10 @@ class parser_algorithm(object):
                                            (clean_datetime, UDP_TCP, snd_rcv, IP, opcode, Response_code, domain))
                             db.commit()
                         elif len(clean_line) == 15:
-                            print('Debug 15')
+                            print('Print to output Log')
                         elif len(clean_line) == 31:
-                            print('Debug line with 21')
+                            cursor.execute('''INSERT INTO dnslog(date_time,protocol,snd_rcv,ip,query_response,opcode,domain)VALUES(%s,%s,%s,%s,%s,%s,%s)''',
+                                           (clean_datetime, UDP_TCP, snd_rcv, IP, opcode, Response_code, domain))
                         else:
                             print(clean_line)
                             print(len(clean_line))
@@ -99,7 +102,9 @@ class parser_algorithm(object):
             print(e)
             print('check first Exception')
 
+
 class MyDaemon(Daemon):
+
     def run(self):
         daemon_parser = parser_algorithm()
         daemon_parser.run()
