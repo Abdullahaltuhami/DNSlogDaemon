@@ -34,6 +34,6 @@ setup(
         'Topic :: Cyber security :: Analysis Tools'
     ],
 
-    install_requires=['MySQL-python', 'ez-setup']
+    install_requires=['MySQL-python', 'ez-setup','click']
 
 )

@@ -33,6 +33,8 @@ The database can be any SQL-based database of your choice, We are picking MYSQL 
 
 > easy_install -U setuptools
 
+> pip install setuptools --no-use-wheel --upgrade
+
 ### Install prerequisties
 > sudo apt-get install python-dev libmysqlclient-dev  # Debian / Ubuntue
 > Sudo yum install python-dev mysql-devel
