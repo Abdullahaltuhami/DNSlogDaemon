@@ -18,6 +18,12 @@ def star_operation():
                  |_|               (____/
               ''')
         # Scripting start
+        print('To clean log file press 1:')
+        print('To create table in Database press 2:')
+        print('To start parssing log file to DB press 3:')
+        print('-')
+        print('-')
+        print('Log file has to be in one directory where the parser at')
         os.system('./script.sh')
     except Exception as e:
         print(e)
