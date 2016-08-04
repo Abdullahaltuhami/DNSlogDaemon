@@ -1,6 +1,7 @@
 import os
 import sys
-from pysql import PySql
+from pysql import pySql
+from parser_daemon import parser_algorithm
 
 class start_operation(object):
 
@@ -26,7 +27,7 @@ class start_operation(object):
         print('-')
         print('To clean log file press 1:')
         print('To create table in Database press 2:')
-        print('To start parssing log file to DB type start | stop | restart:')
+        print('To start parssing log file to DB execute parser_algorithm with start | stop | restart:')
         print('Log file has to be in one directory where the parser at')
         print('-')
         print('-')
@@ -48,27 +49,19 @@ class start_operation(object):
         except Exception as e:
             print(e)
 
+
 if __name__ == '__main__':
+
     op = start_operation()
     op.ascii_art()
     op.intro()
     if len(sys.argv) == 2:
         if '1' == sys.argv[1]:
             # Run code here
-            print('You choose 1')
             op.op_one()
         elif '2' == sys.argv[1]:
             # Run code here
-            print('You choose 2')
             op.op_two()
-        elif '3' == sys.argv[1]:
-            # Run code here
-            print('You choose 3')
         else:
-            print("Unknown command")
+            print("execute script with either : %s 1|2|3 " % sys.argv[0])
             sys.exit(2)
-        sys.exit(0)
-    else:
-        print("execute script with either : %s 1|2|3 " % sys.argv[0])
-        sys.exit(2)
-    star_operation()
