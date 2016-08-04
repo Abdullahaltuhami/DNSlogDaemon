@@ -8,7 +8,7 @@ passwd = ''
 db = 'OGC'
 
 
-class pySql(object):
+class PySql(object):
 
     def create_table(self):
         db = MySQLdb.connect(

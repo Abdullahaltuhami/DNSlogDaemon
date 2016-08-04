@@ -1,26 +1,40 @@
 import os
 import sys
-from pysql import pySql
+from pysql import PySql
+
 
 class start_operation(object):
 
     def ascii_art(self):
         try:
             print('''
-      ___  ____   ____ ____      ____  ____  ___
-     / _ \|    \ / _  |  _ \    / _  |/ _  |/___)
-    | |_| | | | ( ( | | | | |  ( ( | ( ( | |___ |
-     \___/|_|_|_|\_||_|_| |_|   \_|| |\_||_(___/
-                               (_____|
-      ____ ___  ____  ____   ____ ____  _   _
-     / ___) _ \|    \|  _ \ / _  |  _ \| | | |
-    ( (__| |_| | | | | | | ( ( | | | | | |_| |
-     \____)___/|_|_|_| ||_/ \_||_|_| |_|\__  |
-                     |_|               (____/
+
+                            88888888ba,   888b      88  ad88888ba
+                            88      `"8b  8888b     88 d8"     "8b
+                            88        `8b 88 `8b    88 Y8,
+                            88         88 88  `8b   88 `Y8aaaaa,
+                            88         88 88   `8b  88   `"""""8b,
+                            88         8P 88    `8b 88         `8b
+                            88      .a8P  88     `8888 Y8a     a8P
+                            88888888Y"'   88      `888  "Y88888P"
+
+
+
+
+
+
+                            8b,dPPYba,  ,adPPYYba, 8b,dPPYba, ,adPPYba,  ,adPPYba, 8b,dPPYba,
+                            88P'    "8a ""     `Y8 88P'   "Y8 I8[    "" a8P_____88 88P'   "Y8
+                            88       d8 ,adPPPPP88 88          `"Y8ba,  8PP""""""" 88
+                            88b,   ,a8" 88,    ,88 88         aa    ]8I "8b,   ,aa 88
+                            88`YbbdP"'  `"8bbdP"Y8 88         `"YbbdP"'  `"Ybbd8"' 88
+                            88
+                            88                                                                 
                   ''')
 
         except Exception as e:
             print(e)
+
     def intro(self):
         print('-')
         print('-')
@@ -30,7 +44,6 @@ class start_operation(object):
         print('Log file has to be in one directory where the parser at')
         print('-')
         print('-')
-
 
     def op_one(self):
         os.system('sudo chown root:root bin/clean.sh')

@@ -35,9 +35,9 @@ class parser_algorithm(object):
                                 date_time, '%m/%d/%Y %I:%M:%S %p')
                             context = clean_line[4]
                         except:
-                            print('error happened here')
-                            print(len(clean_line))
-                            print(clean_line)
+                            #print('error happened here')
+                            #print(len(clean_line))
+                            #print(clean_line)
                             pass
                         # Case One when line is 19 strings long
                         if len(clean_line) == 31:
