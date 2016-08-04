@@ -1,7 +1,6 @@
 import os
 import sys
 from pysql import pySql
-from parser_daemon import parser_algorithm
 
 class start_operation(object):
 
