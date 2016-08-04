@@ -1,5 +1,6 @@
 import os
 
+
 def star_operation():
     try:
         print('''
@@ -20,9 +21,6 @@ def star_operation():
         os.system('./script.sh')
     except Exception as e:
         print(e)
-    finally:
-        ## Some code here
-
 
 if __name__ == '__main__':
     star_operation()
