@@ -8,7 +8,7 @@ passwd = ''
 db = 'OGC'
 
 
-class Create_Table(object):
+class PySql(object):
 
     def create_table(self):
         db = MySQLdb.connect(
@@ -36,17 +36,16 @@ class Create_Table(object):
         except Exception as e:
             print(e)
 
-    def check_table(self, table_name):
+    def check_table(self):
         db = MySQLdb.connect(
             host='localhost',  user='root', passwd='', db='OGC')
         cursor = db.cursor()
         try:
-            print('Code here')
             cursor.execute('''
                            SELECT COUNT(*)
                            FROM information_schema.TABLES
-                           WHERE table_name = '{0}'
-                           '''.format(table_name.replace('\'', '\'\'')))
+                           WHERE table_name = 'dnslog'
+                           ''')
             if cursor.fetchone()[0] == 1:
                 return True
 

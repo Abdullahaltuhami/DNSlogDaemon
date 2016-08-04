@@ -1,6 +1,6 @@
 import os
 import sys
-import pysql
+from pysql import PySql
 
 class start_operation(object):
 
@@ -26,7 +26,7 @@ class start_operation(object):
         print('-')
         print('To clean log file press 1:')
         print('To create table in Database press 2:')
-        print('To start parssing log file to DB press 3:')
+        print('To start parssing log file to DB type start | stop | restart:')
         print('Log file has to be in one directory where the parser at')
         print('-')
         print('-')
@@ -37,6 +37,16 @@ class start_operation(object):
         os.system('sudo chmod 700 bin/clean.sh')
         os.system('sudo bin/clean.sh')
 
+    def op_two(self):
+        try:
+            p = PySql()
+
+            if p.check_table():
+                print('table dnslog already exist !!!')
+            else:
+                p.create_table()
+        except Exception as e:
+            print(e)
 
 if __name__ == '__main__':
     op = start_operation()
@@ -50,7 +60,7 @@ if __name__ == '__main__':
         elif '2' == sys.argv[1]:
             # Run code here
             print('You choose 2')
-
+            op.op_two()
         elif '3' == sys.argv[1]:
             # Run code here
             print('You choose 3')
