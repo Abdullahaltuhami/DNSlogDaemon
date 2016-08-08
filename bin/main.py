@@ -24,6 +24,7 @@ class start_operation(object):
     def intro(self):
         print('-')
         print('-')
+        print('To start fetching DNSlog Daemon Press 0')
         print('To clean log file press ---- 1:')
         print('To create table in Database press ---- 2:')
         print('To start parssing type ------- start | stop | restart:')
@@ -45,6 +46,8 @@ class start_operation(object):
         except Exception as e:
             print(e)
             pass
+    def op_connection(self):
+        pass
 
 
 if __name__ == '__main__':
@@ -53,7 +56,9 @@ if __name__ == '__main__':
     op.ascii_art()
     op.intro()
     if len(sys.argv) == 2:
-        if '1' == sys.argv[1]:
+        if '0' == sys.argv[1]:
+            pass
+        elif '1' == sys.argv[1]:
             # Run code here
             op.op_one()
         elif '2' == sys.argv[1]:
@@ -61,7 +66,7 @@ if __name__ == '__main__':
             op.op_two()
         elif 'start' == sys.argv[1]:
             os.system('python bin/parser_daemon.py start')
-            print('Daemon started')
+            print('Daemon processed DNS-log')
         elif 'stop' == sys.argv[1]:
             os.system('python bin/parser_daemon.py stop')
             print('Daemon stoped')
