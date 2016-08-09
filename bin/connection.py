@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os
 import sys
 import traceback
@@ -27,9 +28,9 @@ class fetcher(Daemon):
 if __name__ == '__main__':
     try:
         con = connect()
-        
-        feth = MyDaemon('/tmp/OGC-fetcher-daemon.pid')
+
+        fetch = fetcher('/tmp/OGC-fetcher-daemon.pid')
+        fetch.start()
         #con.set_connection()
-        fet.fetch()
     except Exception as e:
         print(e)
