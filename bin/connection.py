@@ -1,7 +1,8 @@
 import os
 import sys
 import traceback
-
+import glob
+from daemon import Daemon
 class connect(object):
     def set_connection(self):
         try:
@@ -14,14 +15,21 @@ class connect(object):
         except Exception as e:
             print(e)
 
-    def getFile(self):
-        # TODO
-        cp_from = '/home/rwx/Desktop/winshare'
-        cp_to = '/home/rwx/Desktop/'
+
+class fetcher(Daemon):
+    def run(self):
+        cp_from = '/home/rwx/Desktop/winshare/Users/abdullah.altuhami/Documents'
+        cp_to = '/home/rwx/Desktop'
+        for path_from in glob.glob(cp_from+'/DNS*'):
+            cmd = '{0} {1} {2}'.format('cp',path_from,cp_to)
+        os.system(cmd)
 
 if __name__ == '__main__':
     try:
         con = connect()
-        con.set_connection()
+        
+        feth = MyDaemon('/tmp/OGC-fetcher-daemon.pid')
+        #con.set_connection()
+        fet.fetch()
     except Exception as e:
         print(e)

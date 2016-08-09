@@ -40,7 +40,6 @@ class parser_algorithm(object):
                                     date_time, '%m/%d/%Y %I:%M:%S %p')
                                 context = clean_line[4]
                             except:
-                                print('YOO LINE 38')
                                 print(len(clean_line))
                                 print(clean_line)
                                 # pass
@@ -193,8 +192,6 @@ class parser_algorithm(object):
                                         print(e)
                                     finally:
                                         pass
-
-
                 except Exception as e:
                     traceback.print_exc(file=sys.stdout)
                     pass
