@@ -7,13 +7,13 @@ import traceback
 class PySql(object):
     host_name = 'localhost'
     user_name = 'root'
-    passwd = ''
+    passwd = 'rootserver'
     db_schema = 'OGC'
 
     def create_table(self):
         try:
             db = MySQLdb.connect(
-                host=host_name,  user=user_name, passwd=passwd, db=db_schema)
+                host=self.host_name,user=self.user_name, passwd=self.passwd, db=self.db_schema)
             cursor = db.cursor()
             cursor.execute('''
             CREATE TABLE `dnslog` (
@@ -40,7 +40,7 @@ class PySql(object):
     def check_table(self):
         try:
             db = MySQLdb.connect(
-                host=host_name,  user=user_name, passwd=passwd, db=db_schema)
+                host=self.host_name,user=self.user_name, passwd=self.passwd, db=self.db_schema)
             cursor = db.cursor()
 
             cursor.execute('''
@@ -57,34 +57,10 @@ class PySql(object):
         finally:
             cursor.close()
 
-
-    def check_database(self):
-        try:
-            db = MySQLdb.connect(
-                host=host_name,  user=user_name, passwd=passwd, db=db_schema)
-            cursor = db.cursor()
-
-            cursor.execute('''SELECT COUNT(*) FROM information_schema.SCHEMATA  WHERE SCHEMA_NAME = {0} '''.format(db_schema))
-
-            if cursor.fetchone()[0] == 1:
-                return True
-
-            return False
-        except Exception as e:
-            print(e)
-
-    def create_database(self):
-        try:
-            db = MySQLdb.connect(
-                host=host_name,  user=user_name, passwd=passwd, db=db_schema)
-            cursor = db.cursor('''Create database {0}'''.format(db_schema))
-        except Exception as e:
-            print(e)
-
     def priv(self):
         try:
             db = MySQLdb.connect(
-                host=host_name,  user=user_name, passwd=passwd, db=db_schema)
+                host=self.host_name,  user=self.user_name, passwd=self.passwd, db=self.db_schema)
             cursor = db.cursor('''GRANT ALL privileges ON *.* TO 'root'@'localhost' identified by 'root' with grant option''')
         except Exception as e:
             print(e)

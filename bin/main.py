@@ -25,8 +25,7 @@ class start_operation(object):
     def intro(self):
         print('')
         print('')
-        print('Clean dnslog press: 1')
-        print('Create Database & table: press 2')
+        print('Create Table: press 2')
         print('Give privileges to user: press priv')
         print('Start fetching type fstart | fstop | frestart')
         print('Start parssing type pstart | pstop | prestart:')
@@ -41,10 +40,9 @@ class start_operation(object):
     def op_two(self):
         try:
             p = PySql()
-            if p.check_table() and p.check_database():
-                print('Database & table already exist !!!')
+            if p.check_table():
+                print('Table already exist !!!')
             else:
-                p.create_database()
                 p.create_table()
         except Exception as e:
             print(e)
@@ -64,9 +62,7 @@ if __name__ == '__main__':
     op.ascii_art()
     op.intro()
     if len(sys.argv) == 2:
-        if '1' == sys.argv[1]:
-            op.op_one()
-        elif '2' == sys.argv[1]:
+        if '2' == sys.argv[1]:
             op.op_two()
         elif 'priv' == sys.argv[1]:
             op.sudo()
