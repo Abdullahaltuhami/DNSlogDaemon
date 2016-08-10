@@ -25,7 +25,7 @@ class parser_algorithm(object):
         # Disable autocommit code mode by siableling
         cursor.execute('''SET autocommit=0;''')
         try:
-            with open('/home/rwx/Desktop/parsing2DB/ready2parse/DNSdebugLog2Parse', 'r') as f:
+            with open('/home/rwx/Desktop/parsing2DB/DNSdebugLog2Parse', 'r') as f:
                 try:
                     for line in f.xreadlines():
                         # Clean the lines
