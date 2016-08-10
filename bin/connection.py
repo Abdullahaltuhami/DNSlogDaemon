@@ -16,14 +16,19 @@ class connect(object):
         except Exception as e:
             print(e)
 
+    def create_dirs(self):
+        os.system('sudo mkdir -p /home/rwx/Desktop/parsing2DB/notready2parse')
+        os.system('sudo mkdir -p /home/rwx/Desktop/parsing2DB/ready2parse')
 
 class fetcher(Daemon):
     def run(self):
         cp_from = '/home/rwx/Desktop/winshare/Users/abdullah.altuhami/Documents'
-        cp_to = '/home/rwx/Desktop'
+        cp_to = '/home/rwx/Desktop/parsing2DB/notready2parse'
         for path_from in glob.glob(cp_from+'/DNS*'):
             cmd = '{0} {1} {2}'.format('cp',path_from,cp_to)
         os.system(cmd)
+
+        # If statment
 
 if __name__ == '__main__':
     try:
