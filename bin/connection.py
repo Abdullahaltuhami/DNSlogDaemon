@@ -17,18 +17,49 @@ class connect(object):
             print(e)
 
     def create_dirs(self):
-        os.system('sudo mkdir -p /home/rwx/Desktop/parsing2DB/notready2parse')
-        os.system('sudo mkdir -p /home/rwx/Desktop/parsing2DB/ready2parse')
+        os.system('sudo mkdir -p /home/rwx/Desktop/parsing2DB')
 
 class fetcher(Daemon):
     def run(self):
-        cp_from = '/home/rwx/Desktop/winshare/Users/abdullah.altuhami/Documents'
-        cp_to = '/home/rwx/Desktop/parsing2DB/notready2parse'
-        for path_from in glob.glob(cp_from+'/DNS*'):
-            cmd = '{0} {1} {2}'.format('cp',path_from,cp_to)
-        os.system(cmd)
+        try:
+            db = MySQLdb.connect(host=self.host_name,user=self.user_name, passwd=self.passwd, db=self.db_schema)
+            cursor = db.cursor()
 
-        # If statment
+            cp_from = '/home/rwx/Desktop/winshare/Users/abdullah.altuhami/Documents'
+            cp_to = '/home/rwx/Desktop/parsing2DB/'
+
+            for path_from in glob.glob(cp_from+'/DNS*'):
+                the_file_path = path
+
+
+            # STarting now
+            if os.path.getsize(the_file_path) >= 523239424 :
+
+
+                #Get creation Date of file
+                creation_date = time.ctime(os.path.getctime(the_file_path))
+                # Input it into the db
+                cursor.execute('''INSERT INTO fetchlog(creation_date,file_name)VALUES(%s,%s)''',
+                            (creation_date,'Test File'))
+                # add creation timestamp to file
+                for path_from in glob.glob(cp_from+'/DNS*'):
+                    cmd = '{0} {1} {2}'.format('cp',path_from,cp_to+'-'+creation_date)
+                # Copy it to parsing2DB
+                os.system(cmd)
+            # Check creation data of file
+            # Get last row from table
+            # compare table to file creation file creation date
+            # If not the same then its a new file
+            # write new creation date to database
+            # add time stamp to new file
+            # after any time stamp add it Ready parse
+            else:
+                print('TODO')
+
+        except Exception as e:
+            print(e)
+
+            # If statment
 
 if __name__ == '__main__':
     try:
