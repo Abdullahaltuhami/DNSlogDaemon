@@ -1,6 +1,7 @@
 import os
 import sys
 from pysql import PySql
+from connection import connect
 
 
 class start_operation(object):
@@ -22,12 +23,13 @@ class start_operation(object):
             pass
 
     def intro(self):
-        print('-')
-        print('-')
-        print('To start fetching DNSlog Daemon Press 0')
-        print('To clean log file press ---- 1:')
-        print('To create table in Database press ---- 2:')
-        print('To start parssing type ------- start | stop | restart:')
+        print('')
+        print('')
+        print('Clean dnslog press: 1')
+        print('Create Database & table: press 2')
+        print('Give privileges to user: press priv')
+        print('Start fetching type fstart | fstop | frestart')
+        print('Start parssing type pstart | pstop | prestart:')
         print('-')
         print('-')
 
@@ -39,40 +41,47 @@ class start_operation(object):
     def op_two(self):
         try:
             p = PySql()
-            if p.check_table():
-                print('table dnslog already exist !!!')
+            if p.check_table() and p.check_database():
+                print('Database & table already exist !!!')
             else:
+                p.create_database()
                 p.create_table()
         except Exception as e:
             print(e)
             pass
-    def op_connection(self):
-        pass
+
+    def sudo(slef):
+        try:
+            p = PySql()
+            p.priv()
+        except Exception as e:
+            print(e)
+            pass
 
 
 if __name__ == '__main__':
-
     op = start_operation()
     op.ascii_art()
     op.intro()
     if len(sys.argv) == 2:
-        if '0' == sys.argv[1]:
-            pass
-        elif '1' == sys.argv[1]:
-            # Run code here
+        if '1' == sys.argv[1]:
             op.op_one()
         elif '2' == sys.argv[1]:
-            # Run code here
             op.op_two()
-        elif 'start' == sys.argv[1]:
+        elif 'priv' == sys.argv[1]:
+            op.sudo()
+        elif 'fstart' == sys.argv[1]:
+            os.system('python bin/connection.py start')
+        elif 'fstop' == sys.argv[1]:
+            os.system('python bin/connection.py stop')
+        elif 'frestart' == sys.argv[1]:
+            os.system('python bin/connection.py restart')
+        elif 'pstart' == sys.argv[1]:
             os.system('python bin/parser_daemon.py start')
-            print('Daemon processed DNS-log')
-        elif 'stop' == sys.argv[1]:
+        elif 'pstop' == sys.argv[1]:
             os.system('python bin/parser_daemon.py stop')
-            print('Daemon stoped')
-        elif 'restart' == sys.argv[1]:
+        elif 'prestart' == sys.argv[1]:
             os.system('python bin/parser_daemon.py restart')
-            print('Daemon restarted')
         else:
             print("execute script with either : %s 1|2|start|stop|restart " % sys.argv[0])
             sys.exit(2)

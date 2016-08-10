@@ -27,10 +27,21 @@ class fetcher(Daemon):
 
 if __name__ == '__main__':
     try:
-        con = connect()
-
         fetch = fetcher('/tmp/OGC-fetcher-daemon.pid')
-        fetch.start()
-        #con.set_connection()
+        if len(sys.argv) == 2:
+            if 'start' == sys.argv[1]:
+                    # Use .run instead of .start to debug your code
+                fetch.run()
+            elif 'stop' == sys.argv[1]:
+                fetch.stop()
+            elif 'restart' == sys.argv[1]:
+                fetch.restart()
+            else:
+                print("Unknown command")
+                sys.exit(2)
+            sys.exit(0)
+        else:
+            print("Usage: %s start|stop|restart" % sys.argv[0])
+            sys.exit(2)
     except Exception as e:
         print(e)

@@ -13,6 +13,8 @@ The database can be any SQL-based database of your choice, We are picking MYSQL 
 
 > crontab -v
 
+### Install python-mysqlDB
+> sudo apt-get install python-mysqldb
 
 ### Running script with crontab
 > @reboot * 12 * * * sudo python /home/to/the/main.py start &
