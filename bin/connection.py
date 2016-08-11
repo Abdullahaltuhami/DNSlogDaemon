@@ -30,6 +30,7 @@ class fetcher(Daemon):
     user_name = 'root'
     passwd = 'rootserver'
     db_schema = 'OGC'
+    the_file_path = ''
 
     def run(self):
         try:
