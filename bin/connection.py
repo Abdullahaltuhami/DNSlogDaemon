@@ -4,7 +4,7 @@ import sys
 import traceback
 import glob
 from daemon import Daemon
-
+import MySQLdb
 
 class connect(object):
 
