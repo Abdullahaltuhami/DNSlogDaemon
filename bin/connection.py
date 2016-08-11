@@ -68,11 +68,11 @@ class fetcher(Daemon):
                 pass
 
         except Exception as e:
-        print(e)
-        print "Exception:"
-        print '-'*60
-        traceback.print_exc(file=sys.stdout)
-        print '-'*60
+            print(e)
+            print "Exception:"
+            print '-'*60
+            traceback.print_exc(file=sys.stdout)
+            print '-'*60
 
 
 if __name__ == '__main__':
