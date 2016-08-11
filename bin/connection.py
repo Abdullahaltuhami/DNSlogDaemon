@@ -48,7 +48,7 @@ class fetcher(Daemon):
 
             cursor.execute(''' SELECT COUNT(*) FROM information_schema.TABLES WHERE table_name = 'fetchlog' ''')
             if cursor.fetchone()[0] == 1:
-                cursor.execute('''INSERT INTO fetchlog(creation)VALUES(%s)'''creation_date)
+                cursor.execute('''INSERT INTO fetchlog(creation)VALUES(%s)''',[creation_date])
                 db.commit()
             else:
                 print('Creation Time of file : ' + creation_date)
@@ -62,7 +62,7 @@ class fetcher(Daemon):
                     if os.path.getsize(self.the_file_path) >= 513802240:
                         # Log This file into database
                         cursor.execute('''INSERT INTO fetchlog(creation)VALUES(%s)''',
-                                       (creation_date))
+                                       [creation_date])
                         db.commit()
 
                         # add creation timestamp to file
