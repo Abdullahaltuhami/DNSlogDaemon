@@ -23,14 +23,14 @@ class start_operation(object):
             pass
 
     def intro(self):
-        print('')
-        print('')
+        print('-'*60)
+        print('-'*60)
         print('Create Table: press 2')
         print('Give privileges to user: press priv')
         print('Start fetching type fstart | fstop | frestart')
         print('Start parssing type pstart | pstop | prestart:')
-        print('-')
-        print('-')
+        print('-'*60)
+        print('-'*60)
 
     def op_one(self):
         os.system('sudo chown root:root bin/clean.sh')
