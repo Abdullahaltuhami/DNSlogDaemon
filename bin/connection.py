@@ -48,11 +48,11 @@ class fetcher(Daemon):
 
             cursor.execute(''' SELECT COUNT(*) FROM information_schema.TABLES WHERE table_name = 'fetchlog' ''')
             if cursor.fetchone()[0] == 1:
-                cursor.execute('''INSERT INTO fetchlog(creation_date)VALUES(%s)''',(creation_date))
+                cursor.execute('''INSERT INTO fetchlog(creation)VALUES(%s)''',(creation_date))
                 db.commit()
             else:
                 print('Creation Time of file : ' + creation_date)
-                cursor.execute('''SELECT creation_date FROM OGC.fetchlog order by id DESC limit 1''')
+                cursor.execute('''SELECT creation FROM OGC.fetchlog order by id DESC limit 1''')
                 result = cursor.fetchall()
                 print('Result of from database is : + result')
 
@@ -61,7 +61,7 @@ class fetcher(Daemon):
                     # If file is new and bigger than 498 MB
                     if os.path.getsize(self.the_file_path) >= 513802240:
                         # Log This file into database
-                        cursor.execute('''INSERT INTO fetchlog(creation_date)VALUES(%s)''',
+                        cursor.execute('''INSERT INTO fetchlog(creation)VALUES(%s)''',
                                        (creation_date))
                         db.commit()
 
