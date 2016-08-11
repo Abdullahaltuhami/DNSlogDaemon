@@ -42,7 +42,7 @@ class fetcher(Daemon):
             cp_to = '/home/rwx/Desktop/parsing2DB/'
 
             for path_from in glob.glob(cp_from + '/DNS*'):
-                self.the_file_path = path
+                self.the_file_path = path_from
 
             # Get creation Date of file
             creation_date = time.ctime(os.path.getctime(self.the_file_path))
@@ -67,8 +67,7 @@ class fetcher(Daemon):
             else:
                 pass
 
-        except Exception as e:
-            print(e)
+        except:
             print "Exception:"
             print '-'*60
             traceback.print_exc(file=sys.stdout)
