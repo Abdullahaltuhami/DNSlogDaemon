@@ -46,9 +46,10 @@ class fetcher(Daemon):
 
             # Get creation Date of file
             creation_date = time.ctime(os.path.getctime(self.the_file_path))
-
+            print('Creation Time of file : ' + creation_date)
             cursor.execute('''SELECT creation_date FROM OGC.fetchlog order by id DESC limit 1''')
             result = cursor.fetchall()
+            print('Result of from database is : + result')
             # Not equal means new File was created by server
             if result != creation_date:
                 # If file is new and bigger than 499 MB
@@ -63,15 +64,17 @@ class fetcher(Daemon):
                     # Copy it to parsing2DB
                     os.system(cmd)
                 else:
+                    print('Something was passed at file size MB checked')
                     pass
             else:
+                print('Something was passed at creation time check')
                 pass
 
         except:
-            print "Exception:"
-            print '-'*60
+            print("Exception:")
+            print('-'*60)
             traceback.print_exc(file=sys.stdout)
-            print '-'*60
+            print('-'*60)
 
 
 if __name__ == '__main__':
