@@ -48,7 +48,7 @@ class fetcher(Daemon):
 
             cursor.execute(''' SELECT COUNT(*) FROM information_schema.TABLES WHERE table_name = 'fetchlog' ''')
             if cursor.fetchone()[0] == 1:
-                cursor.execute('''INSERT INTO fetchlog(creation)VALUES(%s)''',creation_date)
+                cursor.execute('''INSERT INTO fetchlog(creation)VALUES(%s)'''.format(creation_date))
                 db.commit()
             else:
                 print('Creation Time of file : ' + creation_date)
