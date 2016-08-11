@@ -4,7 +4,10 @@ import sys
 import traceback
 import glob
 from daemon import Daemon
+
+
 class connect(object):
+
     def set_connection(self):
         try:
             if os.path.exists('/home/rwx/Desktop/winshare'):
@@ -12,54 +15,54 @@ class connect(object):
                 os.system('cd /home/rwx/Desktop/winshare')
             else:
                 os.system('sudo mkdir -p /home/rwx/Desktop/winshare')
-                os.system('sudo mount.cifs //192.168.15.158/c$ /home/rwx/Desktop/winshare -o user=abdullah.altuhami,domain=oman-gas,password=@bdull@h_94')
+                os.system(
+                    'sudo mount.cifs //192.168.15.158/c$ /home/rwx/Desktop/winshare -o user=abdullah.altuhami,domain=oman-gas,password=@bdull@h_94')
         except Exception as e:
             print(e)
 
     def create_dirs(self):
         os.system('sudo mkdir -p /home/rwx/Desktop/parsing2DB')
 
+
 class fetcher(Daemon):
+
     def run(self):
         try:
-            db = MySQLdb.connect(host=self.host_name,user=self.user_name, passwd=self.passwd, db=self.db_schema)
+            db = MySQLdb.connect(
+                host=self.host_name, user=self.user_name, passwd=self.passwd, db=self.db_schema)
             cursor = db.cursor()
 
             cp_from = '/home/rwx/Desktop/winshare/Users/abdullah.altuhami/Documents'
             cp_to = '/home/rwx/Desktop/parsing2DB/'
 
-            for path_from in glob.glob(cp_from+'/DNS*'):
+            for path_from in glob.glob(cp_from + '/DNS*'):
                 the_file_path = path
 
+            # Get creation Date of file
+            creation_date = time.ctime(os.path.getctime(the_file_path))
 
-            # STarting now
-            if os.path.getsize(the_file_path) >= 523239424 :
-
-
-                #Get creation Date of file
-                creation_date = time.ctime(os.path.getctime(the_file_path))
-                # Input it into the db
-                cursor.execute('''INSERT INTO fetchlog(creation_date,file_name)VALUES(%s,%s)''',
-                            (creation_date,'Test File'))
-                # add creation timestamp to file
-                for path_from in glob.glob(cp_from+'/DNS*'):
-                    cmd = '{0} {1} {2}'.format('cp',path_from,cp_to+'-'+creation_date)
-                # Copy it to parsing2DB
-                os.system(cmd)
-            # Check creation data of file
-            # Get last row from table
-            # compare table to file creation file creation date
-            # If not the same then its a new file
-            # write new creation date to database
-            # add time stamp to new file
-            # after any time stamp add it Ready parse
+            cursor.execute('''SELECT creation_date FROM OGC.fetchlog order by id DESC limit 1''')
+            result = cursor.fetchall()
+            # Not equal means new File was created by server
+            if result != creation_date:
+                # If file is new and bigger than 499 MB
+                if os.path.getsize(the_file_path) >= 523239424:
+                    # Log This file into database
+                    cursor.execute('''INSERT INTO fetchlog(creation_date,file_name)VALUES(%s,%s)''',
+                                   (creation_date, 'Test File'))
+                    # add creation timestamp to file
+                    for path_from in glob.glob(cp_from + '/DNS*'):
+                        cmd = '{0} {1} {2}'.format(
+                            'cp', path_from, cp_to + '-' + creation_date)
+                    # Copy it to parsing2DB
+                    os.system(cmd)
+                else:
+                    pass
             else:
-                print('TODO')
+                pass
 
         except Exception as e:
             print(e)
-
-            # If statment
 
 if __name__ == '__main__':
     try:
