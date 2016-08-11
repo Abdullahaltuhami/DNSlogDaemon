@@ -26,16 +26,15 @@ class connect(object):
 
 
 class fetcher(Daemon):
-    host_name = 'localhost'
-    user_name = 'root'
-    passwd = 'rootserver'
-    db_schema = 'OGC'
-    the_file_path =''
+    self.host_name = 'localhost'
+    self.user_name = 'root'
+    self.passwd = 'rootserver'
+    self.db_schema = 'OGC'
+    self.the_file_path =''
 
     def run(self):
         try:
-            db = MySQLdb.connect(
-                host=self.host_name, user=self.user_name, passwd=self.passwd, db=self.db_schema)
+            db = MySQLdb.connect(host=self.host_name,user=self.user_name, passwd=self.passwd, db=self.db_schema)
             cursor = db.cursor()
 
             cp_from = '/home/rwx/Desktop/winshare/Users/abdullah.altuhami/Documents'
@@ -44,31 +43,41 @@ class fetcher(Daemon):
             for path_from in glob.glob(cp_from + '/DNS*'):
                 self.the_file_path = path_from
 
-            # Get creation Date of file
             creation_date = time.ctime(os.path.getctime(self.the_file_path))
-            print('Creation Time of file : ' + creation_date)
-            cursor.execute('''SELECT creation_date FROM OGC.fetchlog order by id DESC limit 1''')
-            result = cursor.fetchall()
-            print('Result of from database is : + result')
-            # Not equal means new File was created by server
-            if result != creation_date:
-                # If file is new and bigger than 499 MB
-                if os.path.getsize(self.the_file_path) >= 523239424:
-                    # Log This file into database
-                    cursor.execute('''INSERT INTO fetchlog(creation_date,file_name)VALUES(%s,%s)''',
-                                   (creation_date, 'Test File'))
-                    # add creation timestamp to file
-                    for path_from in glob.glob(cp_from + '/DNS*'):
-                        cmd = '{0} {1} {2}'.format(
-                            'cp', path_from, cp_to + '-' + creation_date)
-                    # Copy it to parsing2DB
-                    os.system(cmd)
-                else:
-                    print('Something was passed at file size MB checked')
-                    pass
+            # If Table is empty copy anyway
+
+            cursor.execute(''' SELECT COUNT(*) FROM information_schema.TABLES WHERE table_name = 'fetchlog' ''')
+            if cursor.fetchone()[0] == 1:
+                cursor.execute('''INSERT INTO fetchlog(creation_date,file_name)VALUES(%s,%s)''',(creation_date, 'Test File'))
+                db.commit()
             else:
-                print('Something was passed at creation time check')
-                pass
+                print('Creation Time of file : ' + creation_date)
+                cursor.execute('''SELECT creation_date FROM OGC.fetchlog order by id DESC limit 1''')
+                result = cursor.fetchall()
+                print('Result of from database is : + result')
+
+                # Not equal means new File was created by server
+                if result != creation_date:
+                    # If file is new and bigger than 498 MB
+                    if os.path.getsize(self.the_file_path) >= 513802240:
+                        # Log This file into database
+                        cursor.execute('''INSERT INTO fetchlog(creation_date,file_name)VALUES(%s,%s)''',
+                                       (creation_date, 'Test File'))
+                        db.commit()
+
+                        # add creation timestamp to file
+                        for path_from in glob.glob(cp_from + '/DNS*'):
+                            cmd = '{0} {1} {2}'.format(
+                                'cp', path_from, cp_to + '-' + creation_date)
+
+                        # Copy it to parsing2DB
+                        os.system(cmd)
+                    else:
+                        print('Something was passed at file size MB checked')
+                        pass
+                else:
+                    print('Something was passed at creation time check')
+                    pass
 
         except:
             print("Exception:")
