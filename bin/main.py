@@ -25,17 +25,12 @@ class start_operation(object):
     def intro(self):
         print('-'*60)
         print('-'*60)
-        print('Create Table: press 2')
+        print('Create Tables: press 1')
         print('Give privileges to user: press priv')
         print('Start fetching type fstart | fstop | frestart')
         print('Start parssing type pstart | pstop | prestart:')
         print('-'*60)
         print('-'*60)
-
-    def op_one(self):
-        os.system('sudo chown root:root bin/clean.sh')
-        os.system('sudo chmod 700 bin/clean.sh')
-        os.system('sudo bin/clean.sh')
 
     def op_two(self):
         try:
@@ -62,8 +57,9 @@ if __name__ == '__main__':
     op.ascii_art()
     op.intro()
     if len(sys.argv) == 2:
-        if '2' == sys.argv[1]:
-            op.op_two()
+        if '1' == sys.argv[1]:
+            p = PySql()
+            p.create_table()
         elif 'priv' == sys.argv[1]:
             op.sudo()
         elif 'fstart' == sys.argv[1]:
