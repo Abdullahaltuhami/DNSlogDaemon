@@ -30,7 +30,7 @@ class fetcher(Daemon):
     user_name = 'root'
     passwd = 'rootserver'
     db_schema = 'OGC'
-    the_file_path = ''
+    the_file_path =''
 
     def run(self):
         try:
@@ -42,17 +42,17 @@ class fetcher(Daemon):
             cp_to = '/home/rwx/Desktop/parsing2DB/'
 
             for path_from in glob.glob(cp_from + '/DNS*'):
-                the_file_path = path
+                self.the_file_path = path
 
             # Get creation Date of file
-            creation_date = time.ctime(os.path.getctime(the_file_path))
+            creation_date = time.ctime(os.path.getctime(self.the_file_path))
 
             cursor.execute('''SELECT creation_date FROM OGC.fetchlog order by id DESC limit 1''')
             result = cursor.fetchall()
             # Not equal means new File was created by server
             if result != creation_date:
                 # If file is new and bigger than 499 MB
-                if os.path.getsize(the_file_path) >= 523239424:
+                if os.path.getsize(self.the_file_path) >= 523239424:
                     # Log This file into database
                     cursor.execute('''INSERT INTO fetchlog(creation_date,file_name)VALUES(%s,%s)''',
                                    (creation_date, 'Test File'))
