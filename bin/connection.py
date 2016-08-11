@@ -26,11 +26,11 @@ class connect(object):
 
 
 class fetcher(Daemon):
-    self.host_name = 'localhost'
-    self.user_name = 'root'
-    self.passwd = 'rootserver'
-    self.db_schema = 'OGC'
-    self.the_file_path =''
+    host_name = 'localhost'
+    user_name = 'root'
+    passwd = 'rootserver'
+    db_schema = 'OGC'
+    the_file_path =''
 
     def run(self):
         try:
