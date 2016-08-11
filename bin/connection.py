@@ -25,6 +25,10 @@ class connect(object):
 
 
 class fetcher(Daemon):
+    host_name = 'localhost'
+    user_name = 'root'
+    passwd = 'rootserver'
+    db_schema = 'OGC'
 
     def run(self):
         try:
